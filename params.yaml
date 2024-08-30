@@ -1,0 +1,14 @@
+download_data:
+  out_dir: data/zips
+  train_data_zip: data/zips/train2017.zip
+  val_data_zip: data/zips/val2017.zip
+  annotations_zip: data/zips/annotations_trainval2017.zip
+
+extract_data:
+  out_dir: data/dataset
+  train_data: 
+    source: data/zips/train2017.zip
+  val_data:
+    source: data/zips/val2017.zip
+  annotations:
+    source: data/zips/annotations_trainval2017.zip

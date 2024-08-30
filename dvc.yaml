@@ -1,0 +1,31 @@
+stages:
+  download:
+    cmd: python src/scripts/download_data.py
+    deps:
+      - src/scripts/download_data.py
+    params:
+      - download_data.out_dir
+      - download_data.train_data_zip
+      - download_data.val_data_zip
+      - download_data.annotations_zip
+    outs:
+      - data/zips/train2017.zip
+      - data/zips/val2017.zip
+      - data/zips/annotations_trainval2017.zip
+      
+  extract:
+    cmd: python src/scripts/extract_data.py
+    deps:
+      - src/scripts/extract_data.py
+      - data/zips/train2017.zip
+      - data/zips/val2017.zip
+      - data/zips/annotations_trainval2017.zip
+    params:
+      - extract_data.out_dir
+      - extract_data.train_data.source
+      - extract_data.val_data.source
+      - extract_data.annotations.source
+    outs:
+      - data/dataset/train2017
+      - data/dataset/val2017
+      - data/dataset/annotations

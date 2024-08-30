@@ -1,0 +1,69 @@
+schema: '2.0'
+stages:
+  download:
+    cmd: python src/scripts/download_data.py
+    deps:
+    - path: src/scripts/download_data.py
+      hash: md5
+      md5: e3be1fd747f3c12de4a9dad6a13c71e3
+      size: 1303
+    params:
+      params.yaml:
+        download_data.annotations_zip: data/zips/annotations_trainval2017.zip
+        download_data.out_dir: data/zips
+        download_data.train_data_zip: data/zips/train2017.zip
+        download_data.val_data_zip: data/zips/val2017.zip
+    outs:
+    - path: data/zips/annotations_trainval2017.zip
+      hash: md5
+      md5: f4bbac642086de4f52a3fdda2de5fa2c
+      size: 252907541
+    - path: data/zips/train2017.zip
+      hash: md5
+      md5: cced6f7f71b7629ddf16f17bbcfab6b2
+      size: 19336861798
+    - path: data/zips/val2017.zip
+      hash: md5
+      md5: 442b8da7639aecaf257c1dceb8ba8c80
+      size: 815585330
+  extract:
+    cmd: python src/scripts/extract_data.py
+    deps:
+    - path: data/zips/annotations_trainval2017.zip
+      hash: md5
+      md5: f4bbac642086de4f52a3fdda2de5fa2c
+      size: 252907541
+    - path: data/zips/train2017.zip
+      hash: md5
+      md5: cced6f7f71b7629ddf16f17bbcfab6b2
+      size: 19336861798
+    - path: data/zips/val2017.zip
+      hash: md5
+      md5: 442b8da7639aecaf257c1dceb8ba8c80
+      size: 815585330
+    - path: src/scripts/extract_data.py
+      hash: md5
+      md5: 99e1c00029a86e934a4af5f1358d9a43
+      size: 869
+    params:
+      params.yaml:
+        extract_data.annotations.source: data/zips/annotations_trainval2017.zip
+        extract_data.out_dir: data/dataset
+        extract_data.train_data.source: data/zips/train2017.zip
+        extract_data.val_data.source: data/zips/val2017.zip
+    outs:
+    - path: data/dataset/annotations
+      hash: md5
+      md5: 1b4ce3d407ac70dc7f3a4c0933f77469.dir
+      size: 834416290
+      nfiles: 6
+    - path: data/dataset/train2017
+      hash: md5
+      md5: 107409cf0f5a123bade82b25cbfa38b8.dir
+      size: 19314466396
+      nfiles: 118287
+    - path: data/dataset/val2017
+      hash: md5
+      md5: a0173f60761f977a5afe88aa2d75acb6.dir
+      size: 814705164
+      nfiles: 5000
