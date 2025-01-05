@@ -1,2 +1,8 @@
 venv
 mobile
+data/
+__pycache__/
+*.txt
+*.pt
+models.py
+notebooks/

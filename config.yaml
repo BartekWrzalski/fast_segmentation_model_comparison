@@ -1,0 +1,10 @@
+unet:
+  - resnet18
+  - timm-mobilenetv3_large_100
+
+pspnet:
+  - efficientnet-b0
+  - timm-mobilenetv3_large_100
+
+deeplabv3:
+  - timm-mobilenetv3_large_100
