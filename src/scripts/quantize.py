@@ -16,18 +16,18 @@ smp_models = [
         "timm-mobilenetv3_large_100",
         "/home/bartek/OKNO_segmentation_model_comparison/data/models/unet_timm-mobilenetv3_large_100/epoch=41-step=3864.ckpt",
     ),
-    (
-        get_psp_model,
-        "psp",
-        "efficientnet-b0",
-        "/home/bartek/OKNO_segmentation_model_comparison/data/models/pspnet_efficientnet-b0/epoch=78-step=7268.ckpt",
-    ),
-    (
-        get_psp_model,
-        "psp",
-        "timm-mobilenetv3_large_100",
-        "/home/bartek/OKNO_segmentation_model_comparison/data/models/pspnet_timm-mobilenetv3_large_100/epoch=68-step=6348.ckpt",
-    ),
+    # (
+    #     get_psp_model,
+    #     "psp",
+    #     "efficientnet-b0",
+    #     "/home/bartek/OKNO_segmentation_model_comparison/data/models/pspnet_efficientnet-b0/epoch=78-step=7268.ckpt",
+    # ),
+    # (
+    #     get_psp_model,
+    #     "psp",
+    #     "timm-mobilenetv3_large_100",
+    #     "/home/bartek/OKNO_segmentation_model_comparison/data/models/pspnet_timm-mobilenetv3_large_100/epoch=68-step=6348.ckpt",
+    # ),
     (
         get_deeplab_model,
         "deep",
@@ -66,11 +66,6 @@ class HFWrapper(torch.nn.Module):
 def quantize(model, name):
     example_input = torch.rand(1, 3, 512, 512)
     model = model.cpu()
-    # scripted_model = torch.jit.trace(model, example_input)
-    # scripted_model.save(f"data/quantized/{name}.pt")
-
-    # optimized = optimize_for_mobile(scripted_model)
-    # optimized._save_for_lite_interpreter(f"data/quantized/{name}_optimized.ptl")
     torch.onnx.export(
         model, example_input, f"data/quantized/{name}.onnx", opset_version=11
     )
