@@ -1,7 +1,6 @@
 import torch
-from src.models.lightning_module import SegmentationModel, SegmentationTransformerModel
+from src.models.lightning_module import SegmentationModel
 from src.models.smp_models import get_deeplab_model, get_psp_model, get_unet_model
-from torch.utils.mobile_optimizer import optimize_for_mobile
 from transformers import AutoModelForSemanticSegmentation
 
 smp_models = [
@@ -72,7 +71,9 @@ def quantize(model, name):
 
     # optimized = optimize_for_mobile(scripted_model)
     # optimized._save_for_lite_interpreter(f"data/quantized/{name}_optimized.ptl")
-    torch.onnx.export(model, example_input, f"data/quantized/{name}.onnx", opset_version=11)
+    torch.onnx.export(
+        model, example_input, f"data/quantized/{name}.onnx", opset_version=11
+    )
 
 
 def quantize_smp() -> None:
