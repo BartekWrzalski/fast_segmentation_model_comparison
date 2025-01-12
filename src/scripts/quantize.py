@@ -59,16 +59,14 @@ class HFWrapper(torch.nn.Module):
 
     def forward(self, x):
         out = self.model(x).logits
-        out = torch.nn.functional.interpolate(out, size=(512, 512), mode="nearest")
+        out = torch.nn.functional.interpolate(out, size=(512, 512), mode="bilinear")
         return out
 
 
 def quantize(model, name):
     example_input = torch.rand(1, 3, 512, 512)
     model = model.cpu()
-    torch.onnx.export(
-        model, example_input, f"data/quantized/{name}.onnx", opset_version=11
-    )
+    torch.onnx.dynamo_export(model, example_input).save(f"data/quantized/{name}.onnx")
 
 
 def quantize_smp() -> None:

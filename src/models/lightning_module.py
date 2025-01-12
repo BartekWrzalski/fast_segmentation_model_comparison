@@ -68,7 +68,7 @@ class SegmentationTransformerModel(SegmentationModel):
         self.start_time.record()
         outputs = self.model(images).logits
         outputs = torch.nn.functional.interpolate(
-            outputs, size=(masks.shape[1], masks.shape[2]), mode="nearest"
+            outputs, size=(masks.shape[1], masks.shape[2]), mode="bilinear"
         )
         self.end_time.record()
 
