@@ -58,7 +58,7 @@ def validate_smp() -> dict:
         model.eval()
 
         _, val_dl = get_voc_dataloader(
-            batch_size=16,
+            batch_size=1,
             num_workers=4,
         )
         print(f"Validating {arch} with {backbone} backbone")
@@ -80,7 +80,7 @@ def validate_hf() -> dict:
         model.eval()
 
         _, val_dl = get_voc_dataloader(
-            batch_size=16,
+            batch_size=1,
             num_workers=4,
         )
         print(f"Validating {arch} with {backbone} backbone")
